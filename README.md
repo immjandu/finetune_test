@@ -17,6 +17,12 @@ pip install -U pip && pip install -r requirements.txt
 
 # prepare dataset
 tar xzf cars_w_license_yolov7.tgz # ./cars_w_license_yolov7
+vi ./cars_w_license_yolov7/data.yaml
+############### modify like below ############### 
+train: cars_w_license_yolov7/train/images
+val: cars_w_license_yolov7/valid/images
+test: cars_w_license_yolov7/test/images
+#################################################
 
 # train
 MODEL_NM="yolov7"
@@ -34,6 +40,8 @@ nohup python train.py \
   --cfg cfg/training/yolov7.yaml \
   --cache --hyp data/hyp.scratch.p5.yaml > logs/${LOG_DIR_PATH}.out 2>&1 &
 
+# check training
+tail -f logs/${LOG_DIR_PATH}.out
 watch -d nvidia-smi
 ```
 
